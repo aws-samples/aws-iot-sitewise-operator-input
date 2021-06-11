@@ -1,0 +1,31 @@
+{
+    "sql": "SELECT propertyAlias, timestamp, propertyValue FROM 'lambda/operator/input'",
+    "ruleDisabled": false,
+    "awsIotSqlVersion": "2016-03-23",
+    "actions": [
+        {
+            "iotSiteWise": { 
+                "putAssetPropertyValueEntries": [ 
+                    {
+                        "propertyAlias": "${propertyAlias}",
+                        "propertyValues": [ 
+                            { 
+                                "timestamp": { 
+                                    "timeInSeconds": "${timestamp}"
+                                },
+                                "value": { 
+                                    "doubleValue": "${propertyValue}"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "roleArn": "<ARN-AWS-IoT-SiteWise-Access-Role - CHANGE-IT>"
+            }
+        }
+    ]
+  }
+
+
+
+

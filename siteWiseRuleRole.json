@@ -1,0 +1,10 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "iotsitewise:BatchPutAssetPropertyValue",
+      "Resource": "<ARN-AWS-IoT-SiteWise-ALIAS - CHANGE-IT>"
+    }
+  ]
+}

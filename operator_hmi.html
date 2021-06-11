@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<style>
+        body {
+            padding: 50px;
+        }
+	</style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+  </head>
+  <body>
+  	<h1>Operator Input</h1>
+	<h2>Line Status</h2>
+	<button type="button" id="btn_on"  class="btn btn-outline-success">ON</button>
+	<button type="button" id="btn_off"  class="btn btn-outline-danger">OFF</button>	
+
+	<script type="text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript">
+	    const ON = 1;
+		const OFF = 0;
+		const LINE_ON_CODE = 1020;
+		const LINE_OFF_CODE = 1001; 
+		const ALIAS = "<SITEWISE-ALIAS-CHANGE-IT>";
+		const URL = "<API-GATEWAY-ENDPOINT-CHANGE-IT>";
+
+		var setButtonStatus = function(status) {
+			if (status == 1) {
+				$("#btn_on").removeClass("btn-outline-success")
+                $("#btn_on").addClass("btn-success");
+                $("#btn_off").removeClass("btn-danger");
+                $("#btn_off").addClass("btn-outline-danger");
+			} else {
+				$("#btn_off").removeClass("btn-outline-danger");
+                $("#btn_off").addClass("btn-danger");
+                $("#btn_on").removeClass("btn-success");
+                $("#btn_on").addClass("btn-outline-success");
+			}
+		}
+		
+		var submitChanges = function(status) {        
+			var data = {};
+			data.timestamp = Math.round(+new Date()/1000);
+			if (status == ON) {
+				data.value = LINE_ON_CODE;
+				data.comment = "The production line is ON";				
+			} else {
+				data.value = LINE_OFF_CODE;
+				data.comment = "The production line is OFF";
+			}			
+			console.log(data);
+			$.post(URL + ALIAS, JSON.stringify(data), function( result ) {
+			   	console.log( result );
+			});
+		}
+
+		var getState = function(){
+            $.get(URL + ALIAS).done(function (data) {
+                console.log(data);
+				if (data.value==1020) {
+					setButtonStatus(ON);
+				} else {
+					setButtonStatus(OFF);
+				}
+            });
+        }
+
+		$(document).ready(function() {
+			getState()
+            $("#btn_on").click(function(){
+				setButtonStatus(ON)
+                submitChanges(ON);
+            });
+            $("#btn_off").click(function(){
+				setButtonStatus(OFF);
+                submitChanges(OFF);
+            });
+		});
+	</script>
+  </body
+</html>
