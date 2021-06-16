@@ -4,7 +4,7 @@ In an Industrial environment, the Operators can be an important source of inform
 ## Architecuture
 ![Architecture](/docs/architecture.png)
 
-** **The Code in this repository covers only the Operator input path (steps 1-4)**
+** **The Code in this repository covers only the Operator input path (HMI to SiteWise)**
 
 ## Files
 * **operator_hmi.html** - Operator Input SPA (Single Page Application)
