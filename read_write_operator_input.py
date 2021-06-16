@@ -65,7 +65,6 @@ def lambda_handler(event, context):
                 }
             else : 
                 resp = {}
-            }
             response_body = json.dumps(resp)
     
     
