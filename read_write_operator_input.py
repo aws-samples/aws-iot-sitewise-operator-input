@@ -57,10 +57,14 @@ def lambda_handler(event, context):
         print (response)
         response_code = response_code = response['ResponseMetadata']['HTTPStatusCode']
         if (response_code == 200):
-            resp = {
-                'alias':response['Items'][0]['propertyAlias'],
-                'timestamp': int(response['Items'][0]['timestamp']),
-                'value':float(response['Items'][0]['propertyValue'])
+            if (response['Count']>0) :
+                resp = {
+                    'alias':response['Items'][0]['propertyAlias'],
+                    'timestamp': int(response['Items'][0]['timestamp']),
+                    'value':float(response['Items'][0]['propertyValue'])
+                }
+            else : 
+                resp = {}
             }
             response_body = json.dumps(resp)
     
